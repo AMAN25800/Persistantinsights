@@ -1,14 +1,14 @@
-# Step 1: Use a JDK image to build and run
+# Use OpenJDK 17 slim image
 FROM openjdk:17-jdk-slim
 
-# Step 2: Set working directory
+# Set working directory inside container
 WORKDIR /app
 
-# Step 3: Copy the jar file into container
-COPY target/*.jar app.jar
+# Copy the Spring Boot JAR into the container
+COPY target/persistentinsights-1.0.0.jar app.jar
 
-# Step 4: Expose port
+# Expose port 8080 (Spring Boot default)
 EXPOSE 8081
 
-# Step 5: Run the jar
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# Run the application
+ENTRYPOINT ["java","-jar","app.jar"]
