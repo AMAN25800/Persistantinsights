@@ -1,23 +1,11 @@
-# Stage 1: Build the JAR
 FROM maven:3.8.5-openjdk-17 AS build
 WORKDIR /app
-
-# Copy pom.xml and src folder into the container
 COPY pom.xml .
 COPY src ./src
-
-# Build the project
 RUN mvn clean package -DskipTests
 
-# Stage 2: Run the JAR
 FROM openjdk:17-jdk-slim
 WORKDIR /app
-
-# Copy the built JAR from the previous stage
 COPY --from=build /app/target/*.jar app.jar
-
-# Expose the port your Spring Boot app uses
 EXPOSE 8080
-
-# Start the app
 ENTRYPOINT ["java", "-jar", "app.jar"]
