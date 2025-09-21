@@ -1,0 +1,11 @@
+com\persistant\persistentinsights\Controller\InitiativeController.class
+com\persistant\persistentinsights\model\Initiative.class
+com\persistant\persistentinsights\model\Client.class
+com\persistant\persistentinsights\repo\ProjectRepository.class
+com\persistant\persistentinsights\Controller\DashboardController.class
+com\persistant\persistentinsights\model\Project.class
+com\persistant\persistentinsights\repo\ClientRepository.class
+com\persistant\persistentinsights\repo\InitiativeRepository.class
+com\persistant\persistentinsights\Controller\ClientController.class
+com\persistant\persistentinsights\PersistentinsightsApplication.class
+com\persistant\persistentinsights\Controller\ProjectController.class
