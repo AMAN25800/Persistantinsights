@@ -1,8 +1,23 @@
+# Stage 1: Build the JAR
 FROM maven:3.8.5-openjdk-17 AS build
-COPY ..
-RUN mvn clean package -DiskipTests
+WORKDIR /app
 
-FROM openjdk:17.0.1-jdk-slim
-COPY --FROM=BUILD /target/persistentinsights-1.0.0.jar app.jar
+# Copy pom.xml and src folder into the container
+COPY pom.xml .
+COPY src ./src
+
+# Build the project
+RUN mvn clean package -DskipTests
+
+# Stage 2: Run the JAR
+FROM openjdk:17-jdk-slim
+WORKDIR /app
+
+# Copy the built JAR from the previous stage
+COPY --from=build /app/target/*.jar app.jar
+
+# Expose the port your Spring Boot app uses
 EXPOSE 8080
-ENTRYPOINT["java","-jar","app.jar"]
+
+# Start the app
+ENTRYPOINT ["java", "-jar", "app.jar"]
