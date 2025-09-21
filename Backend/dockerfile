@@ -1,11 +1,17 @@
+# Stage 1: Build
 FROM maven:3.8.5-openjdk-17 AS build
 WORKDIR /app
-COPY pom.xml .
-COPY src ./src
+
+# Copy pom.xml and src from Persistantinsights folder
+COPY Persistantinsights/pom.xml .
+COPY Persistantinsights/src ./src
+
+# Build the JAR
 RUN mvn clean package -DskipTests
 
+# Stage 2: Run
 FROM openjdk:17-jdk-slim
 WORKDIR /app
-COPY --from=build /app/target/*.jar app.jar
+COPY --from=build Persistantinsights/target/*.jar app.jar
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]
